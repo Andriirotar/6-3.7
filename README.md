@@ -13,7 +13,7 @@ protected:
 public:
     Circle(double _radius) : radius(_radius) {}
     void display() const override {
-        std::cout << "Circle with radius: " << radius << std::endl;
+        std::cout << "Коло з радіусом: " << radius << std::endl;
     }
 };
 // Похідний клас "Квадрат"
