@@ -1,48 +1,24 @@
 #include <iostream>
-#include <cmath>
-// Базовий клас "Геометрична фігура"
-class Shape {
+#include <string>
+class Train {
+private:
+    int trainNumber;
+    std::string startStation;
+    std::string endStation;
+    double price;
 public:
-    virtual void display() const = 0; // Чисто віртуальна функція для виведення інформації про фігуру
-    virtual ~Shape() {} // Віртуальний деструктор
-};
-// Похідний клас "Коло"
-class Circle : public Shape {
-protected:
-    double radius;
-public:
-    Circle(double _radius) : radius(_radius) {}
-    void display() const override {
-        std::cout << "Коло з радіусом: " << radius << std::endl;
-    }
-};
-// Похідний клас "Квадрат"
-class Square : public Shape {
-protected:
-    double side;
-public:
-    Square(double _side) : side(_side) {}
-    void display() const override {
-        std::cout << "Квадрат зі стороною: " << side << std::endl;
-    }
-};
-// Похідний клас "Вписане коло в квадрат"
-class InscribedCircle : public Circle, public Square {
-public:
-    InscribedCircle(double _side) : Circle(_side / sqrt(2)), Square(_side) {}
-    void display() const override {
-        std::cout << "Вписане коло з радіусом: " << radius << " in square with side: " << side << std::endl;
-    }
+    Train(int number, const std::string& start, const std::string& end, double cost)
+        : trainNumber(number), startStation(start), endStation(end), price(cost) {}
+    int getTrainNumber() const { return trainNumber; }
+    std::string getStartStation() const { return startStation; }
+    std::string getEndStation() const { return endStation; }
+    double getPrice() const { return price; }
 };
 int main() {
-    // Створення об'єктів класів
-    Circle circle(5.0);
-    Square square(10.0);
-    InscribedCircle inscribedCircle(10.0);
-    // Виведення інформації про об'єкти
-    std::cout << "Information about shapes:" << std::endl;
-    circle.display();
-    square.display();
-    inscribedCircle.display();
+    // Створення об'єкта потягу
+    Train train1(101, "Київ", "Львів", 250.0);
+    // Виведення інформації про потяг
+    std::cout << "Потяг #" << train1.getTrainNumber() << " з " << train1.getStartStation()
+              << " до " << train1.getEndStation() << ". Ціна: " << train1.getPrice() << " грн.\n";
     return 0;
 }
