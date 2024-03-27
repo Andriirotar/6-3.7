@@ -1,16 +1,18 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+using namespace std;
 int main() {
-    std::vector<int> V1 = {1, 2, 2, 3, 4, 5};
-    std::vector<int> V2 = {2, 3, 3, 4, 5, 6, 6};
-    std::sort(V1.begin(), V1.end(), std::greater<int>());
-    std::sort(V2.begin(), V2.end(), std::greater<int>());
-    std::vector<int> result;
-    std::set_symmetric_difference(V1.begin(), V1.end(), V2.begin(), V2.end(), std::back_inserter(result), std::greater<int>());
-    for (const auto &num : result) {
-        std::cout << num << " ";
+    vector<int> V = {1, 2, 3, 4, 5, 6}; // Приклад вектора з парною кількістю елементів
+    // Пошук першого співпадіння між першою половиною та другою половиною вектора
+    auto it = find_first_of(V.begin(), V.begin() + V.size() / 2, V.begin() + V.size() / 2, V.end());
+    if (it != V.end()) { // Якщо знайдено співпадіння
+        V.insert(it, 0); // Вставка нульового елемента перед знайденим співпадінням
     }
-    std::cout << std::endl;
+    // Вивід вектора зі змінами
+    for (const auto& elem : V) {
+        cout << elem << " ";
+    }
+    cout << endl;
     return 0;
 }
