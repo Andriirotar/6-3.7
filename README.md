@@ -1,17 +1,46 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+struct ClientData {
+    int duration;
+    int year;
+    int month;
+    int clientCode;
+};
+bool compareByYear(const ClientData &a, const ClientData &b) {
+    return a.year > b.year;
+}
+void processClientData(int K, const std::vector<ClientData> &clientData) {
+    bool dataFound = false;
+    for (int year = 2024; year >= 2000; --year) {
+        int maxDuration = 0;
+        int maxMonth = -1;
+        for (const auto &data : clientData) {
+            if (data.clientCode == K && data.year == year && data.duration > maxDuration) {
+                maxDuration = data.duration;
+                maxMonth = data.month;
+                dataFound = true;
+            }
+        }
+        if (dataFound) {
+            std::cout << year << " " << maxMonth << " " << maxDuration << std::endl;
+            dataFound = false;
+        }
+    }
+    if (!dataFound) {
+        std::cout << "Немає даних" << std::endl;
+    }
+}
 int main() {
-    std::vector<int> V = {1, 2, 3, 4, 5, 6}; // Приклад вектора з парною кількістю елементів
-    auto middle = V.begin() + V.size() / 2; // Знаходимо середину вектора
-    auto it = std::find_first_of(V.begin(), middle, middle, V.end()); // Шукаємо спільний елемент
-    if (it != middle) { // Якщо елемент знайдено
-        V.insert(it, 0); // Вставляємо нуль перед ним
-    }
-    // Виводимо вектор
-    for (const auto& elem : V) {
-        std::cout << elem << " ";
-    }
-    std::cout << std::endl;
+    std::vector<ClientData> clientData = {
+        {3, 2023, 5, 123},
+        {2, 2023, 6, 456},
+        {4, 2022, 7, 123},
+        {5, 2022, 8, 123},
+        {6, 2021, 9, 789}
+        // Додайте інші дані про клієнтів за потреби
+    };
+    int K = 123; // код клієнта
+    processClientData(K, clientData);
     return 0;
 }
